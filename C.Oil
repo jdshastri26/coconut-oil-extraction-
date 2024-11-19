@@ -1,0 +1,96 @@
+
+
+
+
+
+# coconut_oil_extraction.py
+
+class CoconutOilExtraction:
+    def __init__(self, coconut_weight: float, oil_content_percentage: float):
+        """
+        Initialize the coconut oil extraction process.
+        
+        :param coconut_weight: Total weight of coconuts (kg)
+        :param oil_content_percentage: Percentage of oil content in coconuts (0-100)
+        """
+        self.coconut_weight = coconut_weight
+        self.oil_content_percentage = oil_content_percentage
+        self.extracted_oil = 0.0
+        self.byproduct = 0.0
+
+    def grate(self):
+        print("Grating coconuts...")
+        # Grating simulates preparing coconuts for further processing
+        grated_weight = self.coconut_weight
+        print(f"Grated coconut weight: {grated_weight} kg")
+        return grated_weight
+
+    def dry(self, grated_weight: float, moisture_content: float = 50.0):
+        """
+        Simulates drying of the grated coconut.
+        
+        :param grated_weight: Weight of grated coconut
+        :param moisture_content: Initial moisture percentage to reduce
+        :return: Weight after drying
+        """
+        print("Drying grated coconuts...")
+        dry_weight = grated_weight * ((100 - moisture_content) / 100)
+        print(f"Weight after drying: {dry_weight:.2f} kg")
+        return dry_weight
+
+    def press(self, dry_weight: float):
+        """
+        Simulates the pressing of dried coconut to extract oil.
+        
+        :param dry_weight: Weight of dried coconut
+        :return: Extracted oil weight
+        """
+        print("Pressing dried coconuts to extract oil...")
+        oil_yield = dry_weight * (self.oil_content_percentage / 100)
+        self.extracted_oil = oil_yield
+        self.byproduct = dry_weight - oil_yield
+        print(f"Oil extracted: {oil_yield:.2f} kg")
+        print(f"Byproduct (coconut meal): {self.byproduct:.2f} kg")
+        return oil_yield
+
+    def filter_oil(self):
+        """
+        Simulates filtering the extracted oil for purification.
+        """
+        print("Filtering extracted oil...")
+        filtered_oil = self.extracted_oil * 0.98  # Assume 2% loss during filtering
+        print(f"Filtered oil ready: {filtered_oil:.2f} kg")
+        return filtered_oil
+
+    def process(self):
+        """
+        Full coconut oil extraction process.
+        """
+        grated = self.grate()
+        dried = self.dry(grated)
+        self.press(dried)
+        final_oil = self.filter_oil()
+        return {
+            "filtered_oil": final_oil,
+            "byproduct": self.byproduct
+        }
+
+# Example usage
+if __name__ == "__main__":
+    # Example input: 100kg of coconuts with 30% oil content
+    extractor = CoconutOilExtraction(coconut_weight=100.0, oil_content_percentage=30.0)
+    results = extractor.process()
+    print("\nFinal Results:")
+    print(f"Filtered Oil: {results['filtered_oil']:.2f} kg")
+    print(f"Byproduct: {results['byproduct']:.2f} kg")
+
+
+
+Features:
+
+    Grating, Drying, Pressing, Filtering:
+        Models realistic steps in coconut oil extraction.
+    Adjustable Parameters:
+        Coconut weight, oil content percentage, and moisture content.
+    Output:
+        Filtered oil and byproduct quantities.
